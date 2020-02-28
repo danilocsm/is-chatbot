@@ -1,5 +1,7 @@
+from numpy import zeros
 from functools import reduce 
 from nltk import word_tokenize, FreqDist
+import re
 
 def clean_text(text):
     contractions = {
@@ -29,30 +31,29 @@ def clean_text(text):
 
 class Vocab():
 
-    def __init__(self, words=None, word_to_id=None, id_to_word=None):
-        self.words = words
-        self.word_to_id = word_to_id
-        self.id_to_word = id_to_word
+    def __init__(self, inputs, intents, vocab_length):
+        self.words, self.word_to_id, self.intents_index, self.unique_intents = self.generate_vocab(inputs, intents, vocab_length)
 
-    def generate_vocab(self, text, vocab_size):
-        if text == []:
-            raise ValueError("List not must be empty")
-        if not isinstance(text, (list)):
-            raise TypeError("Input must be a List")
+    def generate_vocab(self, inputs, intents, vocab_size):
         
-        text = map(clean_text, text)
-        all_text = reduce(lambda a,b: a +" "+b, text)
-        word_count = FreqDist(word for word in word_tokenize(all_text))
-        self.words = [word for word, count in word_count.most_common(vocab_size)] #fix this size later(size can be bigger than the actual list size)
-        self.word_to_id = dict(zip(self.words, range(len(self.words))))
-        self.id_to_word = dict(zip(range(len(self.words), self.words)))
-        self.word_to_id['<PAD>'] = len(self.words) + 1
+        inputs = map(clean_text, inputs)
+        unique_intents = list(dict.fromkeys(intents))
+        all_inputs = reduce(lambda a,b: a +" "+b, inputs)
+        word_count = FreqDist(word for word in word_tokenize(all_inputs))
+        words = [word for word, count in word_count.most_common(vocab_size)] #fix this size later(size can be bigger than the actual list size)
+        word_to_id = dict(zip(self.words, range(len(self.words))))
+        word_to_id['<PAD>'] = len(self.words) + 1
+        intents_index = dict(zip(unique_intents, range(len(unique_intents))))
+        return words, word_to_id, intents_index, unique_intents
     
-    def encode(self, words):
+    def encode_input(self, _input):
+        words = word_tokenize(clean_text(_input))
         return [self.word_to_id[word] for word in words if word in self.words]
     
-    def decode(self, ids):
-        return [self.id_to_word[_id] for _id in ids]
+    def encode_output(self, output):
+        one_hot_array = zeros(150)
+        one_hot_array[self.intents_index[output]] = 1
+        return one_hot_array
     
     def pad_sequence(self, sequence, sequence_len):
         return sequence +[self.word_to_id['<PAD>']] * (sequence_len - len(sequence))
