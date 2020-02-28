@@ -1,17 +1,13 @@
 import datetime
 import tensorflow as tf
 from bot_engine import Engine
-from os import getcwd
-import json
+
 class Chatbot():
 
     def __init__(self):
 
         self.engine = Engine()
     
-    def start_engine(self):
-        self.engine.train_engine()
-
     def log(self, line):
         currentDT = datetime.datetime.now()
         line_time = '{0}/{1}/{2}, {3}:{4}\n'.format(currentDT.day,
@@ -23,6 +19,7 @@ class Chatbot():
             log.write(line_time + line) 
 
     def run(self, log=False):
+        self.engine.train_engine()
         while True:
             user_input = input("YOU: ")
             if user_input == 'quit':
