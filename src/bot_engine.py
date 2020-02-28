@@ -1,7 +1,11 @@
 import tensorflow as tf 
+from os import getcwd
+import os
 from tensorflow.keras.layers import Dense, Embedding, Dropout, Flatten
 from vocab import Vocab
+import re
 
+PATH_TO_MODEL = re.sub('/src','/model/model.h5',getcwd())
 SEQUENCE_LEN = 25
 VOCAB_LEN = 8000
 OUTPUT_LEN = 150
@@ -11,8 +15,7 @@ class Engine():
     def __init__(self):
         self.data = self.load_data()
         self.model = self.make_model()
-        self.vocab = Vocab(self.data[0], self.data[1], VOCAB_LEN)
-        self.trained = False
+        self.vocab = Vocab(self.data[0], self.data[1], self.data[2], VOCAB_LEN)
 
     def load_data(self):
         curr_dir = getcwd()
@@ -22,8 +25,9 @@ class Engine():
         
         phrases = [_data[0] for _data in data['train']]
         phrases_intents = [_data[1] for data in data['train'] if _data[1]]
+        bot_answers = data['test']
         # phrases_intents = list(dict.fromkeys(phrases_intents))
-        return (phrases, phrases_intents)
+        return (phrases, phrases_intents,bot_answers)
 
 
     def make_model(self) :
@@ -43,16 +47,10 @@ class Engine():
 
     def train_engine(self):
         
-        if self.trained:
-            with open(PATH_TO_CONFIG) as json_file:
-                json_config = json_file.read()
-            self.model = tf.keras.models.model_from_json(json_config)
-            self.model.load_weights(PATH_TO_WEIGHTS)
+        if os.path.isfile(PATH_TO_MODEL):
+            self.model = tf.keras.models.load_model(PATH_TO_MODEL)
         else:
             encoded_input = [self.vocab.encode_input(_input) for _input in self.data[0]]
             encoded_output = [self.vocab.encode_output(_output) for _output in self.data[1]]
             self.model.fit(encoded_input, encoded_output, verbose=0, batch_size=32, epoch=100)
-            json_config = self.model.to_json()
-            with open(PATH_TO_CONFIG, 'w') as json_file:
-                json_file.write(json_config)
-            self.model.save_weights(PATH_TO_WEIGHTS)
+            self.model.save(PATH_TO_MODEL)
