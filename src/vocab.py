@@ -31,8 +31,9 @@ def clean_text(text):
 
 class Vocab():
 
-    def __init__(self, inputs, intents, vocab_length):
+    def __init__(self, inputs, intents, bot_answers, vocab_length):
         self.words, self.word_to_id, self.intents_index, self.unique_intents = self.generate_vocab(inputs, intents, vocab_length)
+        self.answers = generate_answers(bot_answers)
 
     def generate_vocab(self, inputs, intents, vocab_size):
         
@@ -45,7 +46,18 @@ class Vocab():
         word_to_id['<PAD>'] = len(self.words) + 1
         intents_index = dict(zip(unique_intents, range(len(unique_intents))))
         return words, word_to_id, intents_index, unique_intents
+
     
+    def generate_answers(self, answers):
+        bot_answers = {}
+        for data in answers:
+            if data[1] not in bot_answers.keys():
+                bot_answers[data[1]] = [data[0]]
+            else:
+                bot_answers[data[1]].append(data[0])
+        return bot_answers
+
+
     def encode_input(self, _input):
         words = word_tokenize(clean_text(_input))
         return [self.word_to_id[word] for word in words if word in self.words]
