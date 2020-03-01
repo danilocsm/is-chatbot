@@ -1,56 +1,60 @@
+import heapq
+from numpy import argmax, array
+from random import choice
 import tensorflow as tf 
-from os import getcwd
-from tensorflow.keras.layers import Dense, Embedding, Dropout, Flatten
+from tensorflow.keras.layers import Dense, Embedding, Dropout, GlobalAveragePooling1D, Flatten
 import os
-from vocab import Vocab
+import utils
 import re
 
-PATH_TO_MODEL = re.sub('/src','/model/model.h5',getcwd())
-SEQUENCE_LEN = 25
-VOCAB_LEN = 8000
-OUTPUT_LEN = 150
+PATH_TO_MODEL = re.sub('/src', '/model/model.h5', os.getcwd())
 
 class Engine():
 
     def __init__(self):
-        self.data = self.load_data()
-        self.model = self.make_model()
-        self.vocab = Vocab(self.data[0], self.data[1], self.data[2], VOCAB_LEN)
 
-    def load_data(self):
-        curr_dir = getcwd()
-        data path = re.sub("/src","/data/data_full.json",curr_dir)
-        with open(data_path) as f:
-            data = json.load(f)
-        
-        phrases = [_data[0] for _data in data['train']]
-        phrases_intents = [_data[1] for data in data['train'] if _data[1]]
-        bot_answers = data['test']
-        # phrases_intents = list(dict.fromkeys(phrases_intents))
-        return (phrases, phrases_intents, bot_answers)
+        self.configs = utils.load_configs()
+        self.model =  self.train_engine()
 
 
     def make_model(self) :
 
         model = tf.keras.Sequential()
-        self.model.add(Embedding(VOCAB_LEN, 64, input_length=SEQUENCE_LEN))
-        self.model.add(Flatten())
-        self.model.add(Dense(16, activation='relu'))
-        self.model.add(Dropout(0.5))
-        self.model.add(Dense(16, activation='relu'))
-        self.model.add(Dropout(0.5))
-        self.model.add(Dense(OUTPUT_LEN,activation='softmax'))
-        self.model.compile(optimizer=tf.optimizer.Adam(0.001),
-                            loss=tf.keras.losses.MeanSquaredError(),
-                            metric=['accuracy'])
+        model.add(Embedding(len(self.configs['word_to_id']), 32, input_length=self.configs['sequence_len']))
+        model.add(Flatten())
+        model.add(Dense(16, activation='relu'))
+        # model.add(Dropout(0.5))
+        model.add(Dense(16, activation='relu'))
+        # model.add(Dropout(0.5))
+        model.add(Dense(self.configs['output_len'],activation='softmax'))
+        model.compile(optimizer=tf.keras.optimizers.RMSprop(0.001),
+                            loss='binary_crossentropy',
+                            metrics=['accuracy'])
+        return model
 
 
     def train_engine(self):
         
         if os.path.isfile(PATH_TO_MODEL):
-            self.model = tf.keras.models.load_model(PATH_TO_MODEL)
+            model = tf.keras.models.load_model(PATH_TO_MODEL)
+            
         else:
-            encoded_input = [self.vocab.encode_input(_input) for _input in self.data[0]]
-            encoded_output = [self.vocab.encode_output(_output) for _output in self.data[1]]
-            self.model.fit(encoded_input, encoded_output, verbose=0, batch_size=32, epoch=100)
-            self.model.save(PATH_TO_MODEL)
+            model = self.make_model()
+            doc_x, doc_y = array(self.configs['doc_x']), array(self.configs['doc_y'])
+            model.fit(doc_x, doc_y, epochs=20, batch_size=32)
+            model.evaluate(doc_x, doc_y)
+            model.save(PATH_TO_MODEL)
+        
+        return model 
+
+    
+    def engine_predict(self, _input):
+        word_to_id = self.configs['word_to_id']
+        words = self.configs['words']
+        encoded_input = array([array(utils.pad_sequence(word_to_id, utils.encode_input(word_to_id, words, _input), self.configs['sequence_len']))])
+        predicted = argmax(self.model.predict(encoded_input))
+        # predict_best_3 = heapq.nlargest(3, range(len(predicted)), predicted.take)
+        predicted_intent = self.configs['index_intents'][str(predicted)]
+        # print(predicted_intent)
+        return choice(self.configs['answers'][predicted_intent]) 
+        

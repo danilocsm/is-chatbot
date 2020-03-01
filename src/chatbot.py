@@ -1,7 +1,9 @@
 import datetime
 import tensorflow as tf
 from bot_engine import Engine
+from os import getcwd
 
+PATH_TO_LOG = getcwd()
 class Chatbot():
 
     def __init__(self):
@@ -19,14 +21,11 @@ class Chatbot():
             log.write(line_time + line) 
 
     def run(self, log=False):
-        self.engine.train_engine()
         while True:
             user_input = input("YOU: ")
             if user_input == 'quit':
                 break
-            encoded_input = self.vocab.encode_input(user_input)
-            user_intent = self.engine.model.predict(self.vocab.pad_sequence(encoded_input))
-            bot_answer = random(self.answers[user_intent])
+            bot_answer = self.engine.engine_predict(user_input)
             print("BOT: ", bot_answer)
             if log:
                 self.log("USER: " + user_input + "\n" + "BOT: " + bot_answer + "\n")
