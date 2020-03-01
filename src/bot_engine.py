@@ -1,7 +1,7 @@
 import tensorflow as tf 
 from os import getcwd
-import os
 from tensorflow.keras.layers import Dense, Embedding, Dropout, Flatten
+import os
 from vocab import Vocab
 import re
 
@@ -27,13 +27,13 @@ class Engine():
         phrases_intents = [_data[1] for data in data['train'] if _data[1]]
         bot_answers = data['test']
         # phrases_intents = list(dict.fromkeys(phrases_intents))
-        return (phrases, phrases_intents,bot_answers)
+        return (phrases, phrases_intents, bot_answers)
 
 
     def make_model(self) :
 
         model = tf.keras.Sequential()
-        self.model.add(Embedding(vocab_length, 64, input_length=SEQUENCE_LEN))
+        self.model.add(Embedding(VOCAB_LEN, 64, input_length=SEQUENCE_LEN))
         self.model.add(Flatten())
         self.model.add(Dense(16, activation='relu'))
         self.model.add(Dropout(0.5))
