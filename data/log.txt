@@ -1,0 +1,42 @@
+2/3/2020, 10:45
+USER: hey
+BOT: yes, that's right
+2/3/2020, 10:45
+USER: how are you doing
+BOT: hey there, how are you today
+2/3/2020, 10:45
+USER: whats your name
+BOT: what is your name
+2/3/2020, 10:45
+USER: my name is danilo
+BOT: ai, address me as deb when speaking to me
+2/3/2020, 10:45
+USER: okay, hello deb
+BOT: hi there, how are you doing
+2/3/2020, 10:45
+USER: how old are you?
+BOT: how old will you be
+2/3/2020, 10:45
+USER: i'll be 25 this year
+BOT: undecided
+2/3/2020, 10:45
+USER: what?
+BOT: would you tell me how the ai is doing
+2/3/2020, 10:45
+USER: the ai is doing okay
+BOT: i'd like to know how you are doing
+2/3/2020, 10:45
+USER: i'm doing fine
+BOT: that was a mistake, undo that
+2/3/2020, 10:46
+USER: undo what?
+BOT: please stop the current process
+2/3/2020, 10:46
+USER: okay, i will
+BOT: i can't say for certain either way
+2/3/2020, 10:46
+USER: goodbye
+BOT: it is no
+2/3/2020, 10:46
+USER: see you later
+BOT: bye

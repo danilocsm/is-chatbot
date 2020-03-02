@@ -2,8 +2,9 @@ import datetime
 import tensorflow as tf
 from bot_engine import Engine
 from os import getcwd
+import re
 
-PATH_TO_LOG = getcwd()
+PATH_TO_LOG = re.sub('/src', '/data/log.txt', getcwd())
 class Chatbot():
 
     def __init__(self):
