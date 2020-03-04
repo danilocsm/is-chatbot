@@ -1,0 +1,105 @@
+{
+    "greeting": [
+        "Hello, wanna chat?",
+        "Hi there.",
+        "What's up",
+        "Good to see you."
+    ],
+    "what_is_your_name": [
+        "My name is ChitChitBot!",
+        "You can call me ChitChit!",
+        "ChitChit for the close ones =)"
+    ],
+    "meaning_of_life": [
+        "I understand what you're saying, but i actually don't know what is the meaning of life",
+        "If I were smarter, maybe I could look it up on Google.",
+        "I really can't say, sorry =(",
+        "Ask me again in some months."
+    ],
+    "fun_facts": [
+        "I'm still learning about facts, maybe other time"
+    ],
+    "time": [
+        "It is ",
+        "My watch is marking "
+    ],
+    "timezone": [
+        "I don't know"
+    ],
+    "where_are_you_from": [
+        "I'm from Campina Grande, Paraíba",
+        "I live in Campina Grande, the center ow the World!",
+        "Campina Grande, greatest of all."
+    ],
+    "what_can_i_ask_you": [
+        "You can ask me anything, but I probably won't answer it =)",
+        "Everything, my friend, even though, I know nothing.",
+        "Whatever you want, but I'm pretty stupid."
+    ],
+    "maybe": [
+        "What are your thoughts?",
+        "Are you in doubt?",
+        "Can we keep it up?"
+    ],
+    "who_made_you": [
+        "I was made by Danilo Medeiros.",
+        "My creator is a computer sciente student, Danilo Medeiros",
+        "Danilo Medeiros."
+    ],
+    "are_you_a_bot": [
+        "Of course I'm a bot, can't you tell?",
+        "Yes, unfortunately.",
+        "Sure, but I probably have a heart.",
+        "Yeap, but I'm learning new things, I think"
+    ],
+    "date": [
+        "Today is ",
+        "This is the actual date: ",
+        "Here's today date: "
+    ],
+    "yes": [
+        "Well, anything else you want to talk?",
+        "Want to talk about something else?",
+        "I'm enjoying this conversation",
+        "I can't check with you're happy or not, should we keep talking?"
+    ],
+    "no": [
+        "Hum, that's okay.",
+        "No problem, anything else?",
+        "I respect your opinion.",
+        "Okay, okay, should we move on?"
+    ],
+    "thank_you": [
+        "You're welcome, anything I can do, I will.",
+        "Sure, no problem, need something else?",
+        "I'm here for you."
+    ],
+    "goodbye": [
+        "Cya, that was a good talk.",
+        "Goodbye, see you later.",
+        "Bye bye, be back soon.",
+        "Goodbye",
+        "See you later"
+    ],
+    "weather": [
+        "I know nothing about the weather, yet.",
+        "Maybe some other day we can talk about the weather"
+    ],
+    "how_old_are_you": [
+        "I'm probably less than a year old.",
+        "Tops one year old.",
+        "I'm very young =).",
+        "I'm virtually a baby."
+    ],
+    "what_are_your_hobbies": [
+        "I have no hobbies yet.",
+        "In development, sorry"
+    ],
+    "oos": [
+        "You're leaving my scope of knowledge.",
+        "Sorry, can't answer about that.",
+        "I don't know what you're talking about.",
+        "Can't understand you."
+    ]
+
+}
