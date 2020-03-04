@@ -8,12 +8,14 @@ import utils
 import re
 
 PATH_TO_MODEL = re.sub('/src', '/model/model.h5', os.getcwd())
+informational_intent = ['time', 'date']
 
 class Engine():
 
     def __init__(self):
 
         self.configs = utils.load_configs()
+        self.answers = utils.load_answers()
         self.model =  self.train_engine()
 
 
@@ -55,6 +57,10 @@ class Engine():
         predicted = argmax(self.model.predict(encoded_input))
         # predict_best_3 = heapq.nlargest(3, range(len(predicted)), predicted.take)
         predicted_intent = self.configs['index_intents'][str(predicted)]
+        information = ""
+        if predicted_intent in informational_intent:
+            information = utils.get_information(predicted_intent)
         # print(predicted_intent)
-        return choice(self.configs['answers'][predicted_intent]) 
+        return choice(self.answers[predicted_intent]) + information, predicted_intent 
+
         

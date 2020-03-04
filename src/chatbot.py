@@ -13,20 +13,21 @@ class Chatbot():
     
     def log(self, line):
         currentDT = datetime.datetime.now()
-        line_time = '{0}/{1}/{2}, {3}:{4}\n'.format(currentDT.day,
+        line_time = '{0}/{1}/{2}, {3}:{4}: '.format(currentDT.day,
                                                 currentDT.month,
                                                 currentDT.year,
                                                 currentDT.hour,
                                                 currentDT.minute)
         with open(PATH_TO_LOG, 'a') as log:
-            log.write(line_time + line) 
+            log.write(line_time + line + "\n") 
 
     def run(self, log=False):
         while True:
             user_input = input("YOU: ")
             if user_input == 'quit':
                 break
-            bot_answer = self.engine.engine_predict(user_input)
+            bot_answer, intent = self.engine.engine_predict(user_input)
             print("BOT: ", bot_answer)
             if log:
-                self.log("USER: " + user_input + "\n" + "BOT: " + bot_answer + "\n")
+                self.log("USER: " + user_input)
+                self.log("BOT: " + bot_answer + ", intent: " + intent)
