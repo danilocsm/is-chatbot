@@ -73,16 +73,6 @@ def generate_vocab(inputs, intents):
     index_intents = dict(zip(range(len(unique_intents)), unique_intents))
     return words, word_to_id, intents_index, unique_intents, index_intents
 
-
-def generate_answers(answers):
-    bot_answers = {}
-    for data in answers:
-        if data[1] not in bot_answers.keys():
-            bot_answers[data[1]] = [data[0]]
-        else:
-            bot_answers[data[1]].append(data[0])
-    return bot_answers
-
 def pad_sequence(word_to_id, sequence, sequence_len):
         return sequence + [word_to_id['<PAD>']] * (sequence_len - len(sequence))
 
