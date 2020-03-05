@@ -61,6 +61,6 @@ class Engine():
         if predicted_intent in informational_intent:
             information = utils.get_information(predicted_intent)
         # print(predicted_intent)
-        return choice(self.answers[predicted_intent]) + information, predicted_intent 
+        return (choice(self.answers[predicted_intent]) + information), predicted_intent 
 
         

@@ -1,4 +1,4 @@
-from datetime.datetime import now
+import datetime
 from numpy import zeros
 import json
 from functools import reduce 
@@ -115,11 +115,12 @@ def load_answers():
     return answers
 
 def get_time():
-    currentDT = now()
-    return "{}:{}:{}".format(currentDT.hour, currentDT.minute, cu)
+    currentDT = datetime.datetime.now()
+    return "{}:{}:{}".format(currentDT.hour, currentDT.minute, currentDT.second)
 
 def get_date():
-    pass
+    currentDT = datetime.datetime.now()
+    return "{}/{}/{}".format(currentDT.day, currentDT.month, currentDT.year) 
 
 def get_information(intent):
 
