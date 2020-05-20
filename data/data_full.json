@@ -12405,6 +12405,66 @@
     ],
     "train": [
         [
+            "",
+            "low_grade"
+        ],
+        [
+            "what should i do to upgrade my grades?",
+            "low_grade"
+        ],
+        [
+            "i need to get better in some areas",
+            "low_grade"
+        ],
+        [
+            "i'm really bad in some disciplines, what should i do?",
+            "low_grade"
+        ],
+        [
+            "this discipline is hitting hard, i can't get better, what would you do?",
+            "low_grade"
+        ],
+        [
+            "these areas are too hard for me, don't know what to do",
+            "low_grade"
+        ],
+        [
+            "i have no idea how to get better on this",
+            "low_grade"
+        ],
+        [
+            "how can i get better on this discipline"
+            "low_grade"
+        ],
+        [
+            "i'm having problems with some grades.",
+            "low_grade"
+        ],
+        [
+            "can you help me improve my grades?",
+            "low_grade"
+        ],
+        [
+            "i'm struggling with my grades, could you help?",
+            "low_grade"
+        ],
+        [
+            "i'm not going well with some disciplines, would you help me?",
+            "low_grade"
+        ],
+        [
+            "please, help me get my grades higher.",
+            "low_grade"
+        ],
+        [
+            "having a real hard time with some areas, help me?",
+            "low_grade"
+        ],
+        [
+            "i need help to improve my grades.",
+            "low_grade"
+        ],
+        [
             "what expression would i use to say i love you if i were an italian",
             "translate"
         ],

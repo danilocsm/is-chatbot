@@ -7,7 +7,7 @@ import os
 import utils
 import re
 
-PATH_TO_MODEL = re.sub('/src', '/model/model.h5', os.getcwd())
+PATH_TO_MODEL = re.sub(r'\\src', r'\\model\\model.h5', os.getcwd())
 informational_intent = ['time', 'date']
 
 class Engine():
@@ -25,9 +25,7 @@ class Engine():
         model.add(Embedding(len(self.configs['word_to_id']), 32, input_length=self.configs['sequence_len']))
         model.add(Flatten())
         model.add(Dense(16, activation='relu'))
-        # model.add(Dropout(0.5))
         model.add(Dense(16, activation='relu'))
-        # model.add(Dropout(0.5))
         model.add(Dense(self.configs['output_len'],activation='softmax'))
         model.compile(optimizer=tf.keras.optimizers.RMSprop(0.001),
                             loss='binary_crossentropy',
@@ -35,15 +33,15 @@ class Engine():
         return model
 
 
-    def train_engine(self):
+    def train_engine(self, retrain=False):
         
-        if os.path.isfile(PATH_TO_MODEL):
+        if os.path.isfile(PATH_TO_MODEL) and not retrain:
             model = tf.keras.models.load_model(PATH_TO_MODEL)
             
         else:
             model = self.make_model()
             doc_x, doc_y = array(self.configs['doc_x']), array(self.configs['doc_y'])
-            model.fit(doc_x, doc_y, epochs=20, batch_size=32)
+            model.fit(doc_x, doc_y, epochs=10, batch_size=32)
             model.evaluate(doc_x, doc_y)
             model.save(PATH_TO_MODEL)
         

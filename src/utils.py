@@ -6,7 +6,7 @@ from nltk import word_tokenize, FreqDist
 import re
 import os
 
-PATH_TO_CONFIGS = re.sub('/src', '/data/bot_configs.json', os.getcwd())
+PATH_TO_CONFIGS = re.sub(r'\\src', r'\\data\\bot_configs.json', os.getcwd())
 useful_intents = [
                     'meaning_of_life',
                     'fun_facts',
@@ -26,7 +26,8 @@ useful_intents = [
                     'what_is_your_name',
                     'what_are_your_hobbies',
                     'how_old_are_you',
-                    'oos'
+                    'oos',
+                    'low_grade'
                     ]
 
 def load_configs():
@@ -81,13 +82,13 @@ def encode_input(word_to_id, words, _input):
     return [word_to_id[word] for word in temp_words if word in words]
 
 def encode_output(intents_index, output):
-    one_hot_array = [0] * 19
+    one_hot_array = [0] * 20
     one_hot_array[intents_index[output]] = 1
     return one_hot_array
 
 def load_data():
     curr_dir = os.getcwd()
-    data_path = re.sub("/src","/data/data_full.json",curr_dir)
+    data_path = re.sub(r"\\src", r"\\data\\data_full.json",curr_dir)
     with open(data_path) as f:
         data = json.load(f)
     
@@ -109,7 +110,7 @@ def prepare_model_training_data(inputs, outputs, word_to_id, words, intents_inde
     return sequence_len, padded_input, encoded_output
 
 def load_answers():
-    path = re.sub('/src','/data/bot_answers.json',os.getcwd())
+    path = re.sub(r'\\src',r'\\data\\bot_answers.json',os.getcwd())
     with open(path) as f:
         answers = json.load(f)
     return answers

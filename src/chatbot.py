@@ -21,13 +21,13 @@ class Chatbot():
         with open(PATH_TO_LOG, 'a') as log:
             log.write(line_time + line + "\n") 
 
-    def run(self, log=False):
+    def run(self, log=False, retrain=False):
+        self.engine.train_engine(retrain)
         while True:
             user_input = input("YOU: ")
-            if user_input == 'quit':
-                break
             bot_answer, intent = self.engine.engine_predict(user_input)
-            print("BOT: ", bot_answer)
+            print("BOT: ", bot_answer, "INTENT PREDICTED: ", intent)
             if log:
                 self.log("USER: " + user_input)
                 self.log("BOT: " + bot_answer + ", intent: " + intent)
+            if intent == 'goodbye': break

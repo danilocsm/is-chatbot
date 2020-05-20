@@ -100,6 +100,11 @@
         "Sorry, can't answer about that.",
         "I don't know what you're talking about.",
         "Can't understand you."
+    ],
+    "low_grade": [
+    	"What areas are you struggling with?",
+        "Which subjects are the most difficult?",
+        "Could you list the disciplines you are not going okay?"
     ]
 
 }

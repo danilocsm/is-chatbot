@@ -1,5 +1,5 @@
-from chatbot import Chatbot
+import chatbot
 
-chat = Chatbot()
+chat = chatbot.Chatbot()
+chat.run(retrain=False)
 
-chat.run(log=True)
