@@ -41,7 +41,7 @@ class Engine():
         else:
             model = self.make_model()
             doc_x, doc_y = array(self.configs['doc_x']), array(self.configs['doc_y'])
-            model.fit(doc_x, doc_y, epochs=10, batch_size=32)
+            model.fit(doc_x, doc_y, epochs=10, batch_size=32, verbose=0)
             model.evaluate(doc_x, doc_y)
             model.save(PATH_TO_MODEL)
         

@@ -23,10 +23,11 @@ class Chatbot():
 
     def run(self, log=False, retrain=False):
         self.engine.train_engine(retrain)
+        print("Welcome to Chitchit Bot!")
         while True:
             user_input = input("YOU: ")
             bot_answer, intent = self.engine.engine_predict(user_input)
-            print("BOT: ", bot_answer, "INTENT PREDICTED: ", intent)
+            print("BOT: ", bot_answer)
             if log:
                 self.log("USER: " + user_input)
                 self.log("BOT: " + bot_answer + ", intent: " + intent)
