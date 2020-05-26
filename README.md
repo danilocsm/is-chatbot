@@ -1,4 +1,4 @@
 ### IS-CHATBOT
 
-Antes de utilizar, abra o terminal de comandos navegue atéo
-diret�rio do projeto digite `pip install -r requirements.txt`.
+Antes de utilizar, abra o terminal de comandos navegue atÃ©o
+diretÃrio do projeto e digite `pip install -r requirements.txt`.
